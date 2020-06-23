@@ -1,0 +1,17 @@
+{
+  "name": "dhis2-wrapper",
+  "version": "0.0.1",
+  "description": "DHIS2 API wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Pablo-Rodriguez <rodpepablo@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0",
+    "query-string": "^6.13.1",
+    "ramda": "^0.27.0"
+  }
+}
