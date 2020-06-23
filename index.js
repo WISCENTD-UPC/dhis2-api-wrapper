@@ -29,20 +29,38 @@ module.exports = class {
     return config
   }
 
+  async _getAllPages (endpoint, request, responsePropName) {
+    const result = []
+    const response = await this._base.get(endpoint, request)
+    const pager = response.pager
+    result.push(response)
+
+    if (pager != null && pager.pageCount > 1) {
+      for (let i = 2; i <= pager.pageCount; i++) {
+        result.push(this._base.get(endpoint, R.mergeDeepRight(request, { query: { page: i } })))
+      }
+    }
+
+    return R.pipe(
+      R.map(R.prop(responsePropName)),
+      R.flatten
+    )(await Promise.all(result))
+  }
+
   getResources () {
-    return this._base.get(ENDPOINTS.RESOURCES.GET(), this.createRequest())
+    return this._getAllPages(ENDPOINTS.RESOURCES.GET(), this.createRequest(), 'resources')
   }
 
   async resourcesSummary () {
-    const resources = (await this.getResources()).resources
+    const resources = await this.getResources()
     console.log()
     console.log('RESOURCES'.padStart(20))
     R.map(_ => console.log(`${_.displayName.padEnd(45, '.')} ${_.href}`), resources)
   }
 
-  getOrganisationUnits (query) {
+  getOrganisationUnits (query = {}) {
     const request = this.createRequest({ query })
-    return this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request)
+    return this._getAllPages(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request, 'organisationUnits')
   }
 
   getOrganisationUnit (id) {
@@ -50,14 +68,14 @@ module.exports = class {
   }
 
   getTrackedEntityTypes () {
-    return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_TYPES(), this.createRequest())
+    return this._getAllPages(ENDPOINTS.TRACKED_ENTITIES.GET_TYPES(), this.createRequest(), 'trackedEntityTypes')
   }
 
   getTrackedEntityInstances (ouID, filters = {}) {
     const request = this.createRequest({
       query: { ou: ouID, ...filters }
     })
-    return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_INSTANCES(), request)
+    return this._getAllPages(ENDPOINTS.TRACKED_ENTITIES.GET_INSTANCES(), request, 'trackedEntityInstances')
   }
 
   getTrackedEntityInstance (id) {
@@ -65,18 +83,18 @@ module.exports = class {
   }
 
   getEventsReports () {
-    return this._base.get(ENDPOINTS.EVENTS.GET_REPORTS(), this.createRequest())
+    return this._getAllPages(ENDPOINTS.EVENTS.GET_REPORTS(), this.createRequest(), 'eventsReports')
   }
 
   async programsSummary () {
-    const programs = (await this.getPrograms()).programs
+    const programs = await this.getPrograms()
     console.log()
     console.log('PROGRAMS'.padStart(20))
     R.map(_ => console.log(`${_.displayName.padEnd(45, '.')} ${_.id}`), programs)
   }
 
   getPrograms () {
-    return this._base.get(ENDPOINTS.PROGRAMS.GET_PROGRAMS(), this.createRequest())
+    return this._getAllPages(ENDPOINTS.PROGRAMS.GET_PROGRAMS(), this.createRequest(), 'programs')
   }
 
   getProgram (id) {
@@ -84,7 +102,7 @@ module.exports = class {
   }
 
   getProgramStages () {
-    return this._base.get(ENDPOINTS.PROGRAMS.GET_STAGES(), this.createRequest())
+    return this._getAllPages(ENDPOINTS.PROGRAMS.GET_STAGES(), this.createRequest(), 'programStages')
   }
 
   getProgramStage (id) {
