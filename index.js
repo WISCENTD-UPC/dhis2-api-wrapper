@@ -71,7 +71,7 @@ module.exports = class {
     const request = this.createRequest({
       query: { paging: false, includeDescendants: true }
     })
-    return this._base.get(ENDPOINTS:ORGANISATION_UNITS.GET(id), request)
+    return this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)
   }
 
   getTrackedEntityTypes () {
