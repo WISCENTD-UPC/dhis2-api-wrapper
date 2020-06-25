@@ -67,6 +67,13 @@ module.exports = class {
     return this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), this.createRequest())
   }
 
+  getOrganisationUnitsFromParent (id) {
+    const request = this.createRequest({
+      query: { paging: false, includeDescendants: true }
+    })
+    return this._base.get(ENDPOINTS:ORGANISATION_UNITS.GET(id), request)
+  }
+
   getTrackedEntityTypes () {
     return this._getAllPages(ENDPOINTS.TRACKED_ENTITIES.GET_TYPES(), this.createRequest(), 'trackedEntityTypes')
   }
