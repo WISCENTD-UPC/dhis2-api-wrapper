@@ -71,7 +71,7 @@ module.exports = class {
     const request = this.createRequest({
       query: { paging: false, includeDescendants: true }
     })
-    return await (this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)).organisationUnits
+    return (await this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)).organisationUnits
   }
 
   getTrackedEntityTypes () {
