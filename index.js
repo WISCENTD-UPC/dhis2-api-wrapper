@@ -67,11 +67,11 @@ module.exports = class {
     return this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), this.createRequest())
   }
 
-  getOrganisationUnitsFromParent (id) {
+  async getOrganisationUnitsFromParent (id) {
     const request = this.createRequest({
       query: { paging: false, includeDescendants: true }
     })
-    return this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)
+    return await (this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)).organisationUnits
   }
 
   getTrackedEntityTypes () {
