@@ -80,7 +80,7 @@ module.exports = class {
 
   getTrackedEntityInstances (ouID, filters = {}) {
     const request = this.createRequest({
-      query: { ou: ouID, ...filters }
+      query: { ou: ouID, paging: false, ...filters }
     })
     return this._getAllPages(ENDPOINTS.TRACKED_ENTITIES.GET_INSTANCES(), request, 'trackedEntityInstances')
   }
@@ -101,7 +101,10 @@ module.exports = class {
   }
 
   getPrograms () {
-    return this._getAllPages(ENDPOINTS.PROGRAMS.GET_PROGRAMS(), this.createRequest(), 'programs')
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.PROGRAMS.GET_PROGRAMS(), request)).programs
   }
 
   getProgram (id) {
