@@ -100,7 +100,7 @@ module.exports = class {
     R.map(_ => console.log(`${_.displayName.padEnd(45, '.')} ${_.id}`), programs)
   }
 
-  getPrograms () {
+  async getPrograms () {
     const request = this.createRequest({
       query: { paging: false }
     })
