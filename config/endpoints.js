@@ -13,6 +13,7 @@ module.exports = {
     GET_TYPES: () => '/trackedEntityTypes'
   },
   EVENTS: {
+    GET_TRACKED_ENTITY_EVENTS: () => '/events',
     GET_REPORTS: () => '/eventReports'
   },
   PROGRAMS: {
