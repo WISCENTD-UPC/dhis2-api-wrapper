@@ -131,7 +131,10 @@ module.exports = class {
   }
 
   async getDataElements () {
-    return (await this._base.get(ENDPOINTS.DATA_ELEMENTS.GET_DATA_ELEMENTS(), this.createRequest())).dataElements
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.DATA_ELEMENTS.GET_DATA_ELEMENTS(), request)).dataElements
   }
 }
 
