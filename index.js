@@ -122,5 +122,12 @@ module.exports = class {
   getProgramIndicator (id) {
     return this._base.get(ENDPOINTS.PROGRAMS.GET_INDICATOR(id), this.createRequest())
   }
+
+  async getTrackedEntityEvents (id) {
+    const request = this.createRequest({
+      query: { trackedEntityInstance: id }
+    })
+    return (await this._base.get(ENDPOINTS.EVENTS.GET_TRACKED_ENTITY_EVENTS(), request)).events
+  }
 }
 
