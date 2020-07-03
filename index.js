@@ -131,7 +131,7 @@ module.exports = class {
   }
 
   async getDataElements () {
-    return (await this._base.get(DATA_ELEMENTS.GET_DATA_ELEMENTS(), this.createRequest())).dataElements
+    return (await this._base.get(ENDPOINTS.DATA_ELEMENTS.GET_DATA_ELEMENTS(), this.createRequest())).dataElements
   }
 }
 
