@@ -22,6 +22,9 @@ module.exports = {
     GET_STAGES: () => '/programStages',
     GET_STAGE: (id) => `/programStages/${id}`,
     GET_INDICATOR: (id) => `/programIndicators/${id}`
+  },
+  DATA_ELEMENTS: {
+    GET_DATA_ELEMENTS: () => '/dataElements'
   }
 }
 

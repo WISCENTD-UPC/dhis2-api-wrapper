@@ -129,5 +129,9 @@ module.exports = class {
     })
     return (await this._base.get(ENDPOINTS.EVENTS.GET_TRACKED_ENTITY_EVENTS(), request)).events
   }
+
+  async getDataElements () {
+    return (await this._base.get(DATA_ELEMENTS.GET_DATA_ELEMENTS(), this.createRequest())).dataElements
+  }
 }
 
