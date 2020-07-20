@@ -89,6 +89,13 @@ module.exports = class {
     return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_INSTANCE(id), this.createRequest())
   }
 
+  getTrackedEntitiesAttributes () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_ATTRIBUTES(), request)).trackedEntityAttributes
+  }
+
   getEventsReports () {
     return this._getAllPages(ENDPOINTS.EVENTS.GET_REPORTS(), this.createRequest(), 'eventsReports')
   }
