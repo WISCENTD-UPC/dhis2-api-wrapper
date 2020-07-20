@@ -89,7 +89,7 @@ module.exports = class {
     return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_INSTANCE(id), this.createRequest())
   }
 
-  getTrackedEntitiesAttributes () {
+  async getTrackedEntitiesAttributes () {
     const request = this.createRequest({
       query: { paging: false }
     })
