@@ -71,3 +71,9 @@ Creation of the api wrapper:
 
 + api.getDataElements(): Get all data elements avaliable.
 
+## Testing
+
+```{bash}
+npm test
+```
+
