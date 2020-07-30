@@ -15,7 +15,7 @@ This package is not currently in the npm ecosystem, so in order to install it in
   }
 ```
 
-After configuring the package.json ```{bash}npm install``` should be executed
+After configuring the package.json ```npm install``` should be executed
 
 ## Usage
 
@@ -39,7 +39,7 @@ Creation of the api wrapper:
 
 + api.resourcesSummary(): Print a list with all the resources avaliable and their URLs.
 
-+ api.getOrganisationUnits(query = {}): Get organisation units. Additional filters can be passed as an object that is going to be added as query parameters.
++ api.getOrganisationUnits(): Get all organisation units.
 
 + api.getOrganisationUnit(id): Get additional information of an organisation unit given its ID.
 
