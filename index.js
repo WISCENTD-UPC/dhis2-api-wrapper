@@ -20,6 +20,7 @@ module.exports = class {
       debug: this.debug
     })
     this._Date = opts._Date || Date
+    this._log = opts._log || console.log.bind(console)
   }
 
   createRequest (config = {}) {
@@ -47,20 +48,25 @@ module.exports = class {
     )(await Promise.all(result))
   }
 
-  getResources () {
-    return this._getAllPages(ENDPOINTS.RESOURCES.GET(), this.createRequest(), 'resources')
+  async getResources () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.RESOURCES.GET(), request)).resources
   }
 
   async resourcesSummary () {
     const resources = await this.getResources()
-    console.log()
-    console.log('RESOURCES'.padStart(20))
-    R.map(_ => console.log(`${_.displayName.padEnd(45, '.')} ${_.href}`), resources)
+    this._log()
+    this._log('RESOURCES'.padStart(20))
+    R.map(_ => this._log(`${_.displayName.padEnd(45, '.')} ${_.href}`), resources)
   }
 
-  getOrganisationUnits (query = {}) {
-    const request = this.createRequest({ query })
-    return this._getAllPages(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request, 'organisationUnits')
+  async getOrganisationUnits () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request)).organisationUnits
   }
 
   getOrganisationUnit (id) {
@@ -74,8 +80,11 @@ module.exports = class {
     return (await this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET(id), request)).organisationUnits
   }
 
-  getTrackedEntityTypes () {
-    return this._getAllPages(ENDPOINTS.TRACKED_ENTITIES.GET_TYPES(), this.createRequest(), 'trackedEntityTypes')
+  async getTrackedEntityTypes () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_TYPES(), request)).trackedEntityTypes
   }
 
   getTrackedEntityInstances (ouID, filters = {}) {
@@ -96,15 +105,18 @@ module.exports = class {
     return (await this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_ATTRIBUTES(), request)).trackedEntityAttributes
   }
 
-  getEventsReports () {
-    return this._getAllPages(ENDPOINTS.EVENTS.GET_REPORTS(), this.createRequest(), 'eventsReports')
+  async getEventsReports () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.EVENTS.GET_REPORTS(), request)).eventReports
   }
 
   async programsSummary () {
     const programs = await this.getPrograms()
-    console.log()
-    console.log('PROGRAMS'.padStart(20))
-    R.map(_ => console.log(`${_.displayName.padEnd(45, '.')} ${_.id}`), programs)
+    this._log()
+    this._log('PROGRAMS'.padStart(20))
+    R.map(_ => this._log(`${_.displayName.padEnd(45, '.')} ${_.id}`), programs)
   }
 
   async getPrograms () {
@@ -118,8 +130,11 @@ module.exports = class {
     return this._base.get(ENDPOINTS.PROGRAMS.GET_PROGRAM(id), this.createRequest())
   }
 
-  getProgramStages () {
-    return this._getAllPages(ENDPOINTS.PROGRAMS.GET_STAGES(), this.createRequest(), 'programStages')
+  async getProgramStages () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.PROGRAMS.GET_STAGES(), request)).programStages
   }
 
   getProgramStage (id) {
@@ -132,7 +147,7 @@ module.exports = class {
 
   async getTrackedEntityEvents (id) {
     const request = this.createRequest({
-      query: { trackedEntityInstance: id }
+      query: { paging: false, trackedEntityInstance: id }
     })
     return (await this._base.get(ENDPOINTS.EVENTS.GET_TRACKED_ENTITY_EVENTS(), request)).events
   }
