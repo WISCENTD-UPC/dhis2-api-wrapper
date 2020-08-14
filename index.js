@@ -158,5 +158,12 @@ module.exports = class {
     })
     return (await this._base.get(ENDPOINTS.DATA_ELEMENTS.GET_DATA_ELEMENTS(), request)).dataElements
   }
+
+  getTrackedEntityRelationships (id) {
+    const request = this.createRequest({
+      query: { paging: false, tei: id }
+    })
+    return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_RELATIONSHIPS(), request)
+  }
 }
 

@@ -11,7 +11,8 @@ module.exports = {
     GET_INSTANCES: () => '/trackedEntityInstances',
     GET_INSTANCE: (id) => `/trackedEntityInstances/${id}`,
     GET_TYPES: () => '/trackedEntityTypes',
-    GET_ATTRIBUTES: () => '/trackedEntityAttributes'
+    GET_ATTRIBUTES: () => '/trackedEntityAttributes',
+    GET_RELATIONSHIPS: () => '/relationships'
   },
   EVENTS: {
     GET_TRACKED_ENTITY_EVENTS: () => '/events',

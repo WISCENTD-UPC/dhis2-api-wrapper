@@ -158,6 +158,22 @@ test('Get data elements', simpleRouteTest({
   responseProp: 'dataElements'
 }))
 
+test('Get tracked entity relationships', async () => {
+  const id = uuid()
+  const responseValue = [ { id: uuid() } ]
+  const get = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+  const base = { get }
+  const { api } = createAPI({ base })
+
+  const response = await api.getTrackedEntityRelationships(id)
+
+  expect(response).toStrictEqual(responseValue)
+  const request = api.createRequest({
+    query: { paging: false, tei: id }
+  })
+  expect(get).toHaveBeenCalledWith(ENDPOINTS.TRACKED_ENTITIES.GET_RELATIONSHIPS(), request)
+})
+
 function simpleRouteTest ({ apiHandler, path, responseProp } = {}) {
   return async () => {
     const responseValue = { [responseProp]: uuid() }
