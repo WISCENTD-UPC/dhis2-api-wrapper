@@ -27,6 +27,9 @@ module.exports = {
   },
   DATA_ELEMENTS: {
     GET_DATA_ELEMENTS: () => '/dataElements'
+  },
+  RELATIONSHIPS: {
+    GET_TYPES: () => '/relationshipTypes'
   }
 }
 

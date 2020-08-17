@@ -165,5 +165,12 @@ module.exports = class {
     })
     return this._base.get(ENDPOINTS.TRACKED_ENTITIES.GET_RELATIONSHIPS(), request)
   }
+
+  async getRelationshipTypes () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.RELATIONSHIPS.GET_TYPES(), request)).relationshipTypes
+  }
 }
 

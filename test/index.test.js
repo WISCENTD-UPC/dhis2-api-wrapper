@@ -174,6 +174,13 @@ test('Get tracked entity relationships', async () => {
   expect(get).toHaveBeenCalledWith(ENDPOINTS.TRACKED_ENTITIES.GET_RELATIONSHIPS(), request)
 })
 
+test('Get relationship types', simpleRouteTest({
+  apiHandler: 'getRelationshipTypes',
+  path: ENDPOINTS.RELATIONSHIPS.GET_TYPES,
+  responseProp: 'relationshipTypes'
+}))
+
+
 function simpleRouteTest ({ apiHandler, path, responseProp } = {}) {
   return async () => {
     const responseValue = { [responseProp]: uuid() }
