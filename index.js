@@ -172,5 +172,23 @@ module.exports = class {
     })
     return (await this._base.get(ENDPOINTS.RELATIONSHIPS.GET_TYPES(), request)).relationshipTypes
   }
+
+  async getOptionSets () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.OPTIONS.GET_SETS(), request)).optionSets
+  }
+
+  async getOptionSet (id) {
+    return (await this._base.get(ENDPOINTS.OPTIONS.GET_SET(id), this.createRequest()))
+  }
+
+  async getOptions () {
+    const request = this.createRequest({
+      query: { paging: false }
+    })
+    return (await this._base.get(ENDPOINTS.OPTIONS.GET_OPTIONS(), request)).options
+  }
 }
 

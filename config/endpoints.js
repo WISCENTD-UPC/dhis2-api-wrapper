@@ -30,6 +30,11 @@ module.exports = {
   },
   RELATIONSHIPS: {
     GET_TYPES: () => '/relationshipTypes'
+  },
+  OPTIONS: {
+    GET_SETS: () => '/optionSets',
+    GET_SET: (id) => `/optionSets/${id}`,
+    GET_OPTIONS: () => '/options'
   }
 }
 

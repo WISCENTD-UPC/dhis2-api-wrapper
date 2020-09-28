@@ -136,6 +136,23 @@ test('Get program indicator by id', routeWithIDTest({
   path: ENDPOINTS.PROGRAMS.GET_INDICATOR
 }))
 
+test('Get option sets', simpleRouteTest({
+  apiHandler: 'getOptionSets',
+  path: ENDPOINTS.OPTIONS.GET_SETS,
+  responseProp: 'optionSets'
+}))
+
+test('Get option set by id', routeWithIDTest({
+  apiHandler: 'getOptionSet',
+  path: ENDPOINTS.OPTIONS.GET_SET
+}))
+
+test('Get options', simpleRouteTest({
+  apiHandler: 'getOptions',
+  path: ENDPOINTS.OPTIONS.GET_OPTIONS,
+  responseProp: 'options'
+}))
+
 test('Get tracked entity events given tracked entity id', async () => {
   const id = uuid()
   const responseValue = { events: [ uuid(), uuid() ] }
