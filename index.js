@@ -141,6 +141,26 @@ module.exports = class {
     return this._base.get(ENDPOINTS.PROGRAMS.GET_STAGE(id), this.createRequest())
   }
 
+  async dataElementsSummaryForProgramStage (programStageID) {
+    const [ dataElements, programStage ] = await Promise.all([
+      this.getDataElements(),
+      this.getProgramStage(programStageID)
+    ])
+    this._log()
+    this._log('PROGRAMS DATA ELEMENTS'.padStart(20))
+    return R.pipe(
+      R.prop('programStageDataElements'),
+      R.defaultTo([]),
+      R.pluck('dataElement'),
+      R.pluck('id'),
+      R.innerJoin(
+        (dataElement, id) => dataElement.id === id,
+        dataElements
+      ),
+      R.forEach(_ => this._log(`${_.displayName.padEnd(45, '.')} ${_.id}`))
+    )(programStage)
+  }
+
   getProgramIndicator (id) {
     return this._base.get(ENDPOINTS.PROGRAMS.GET_INDICATOR(id), this.createRequest())
   }

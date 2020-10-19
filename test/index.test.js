@@ -131,6 +131,34 @@ test('Get program stage by id', routeWithIDTest({
   path: ENDPOINTS.PROGRAMS.GET_STAGE
 }))
 
+test('Data elements summary for program stage', async () => {
+  const programStageID = uuid()
+  const elementID = uuid()
+  const dataElements = [ { id: elementID, displayName: 'Health outcome' } ]
+  const programStage = {
+    id: programStageID,
+    programStageDataElements: [
+      { dataElement: { id: elementID } }
+    ]
+  }
+  const get = jest.fn()
+    .mockReturnValueOnce(Promise.resolve({ dataElements }))
+    .mockReturnValueOnce(Promise.resolve(programStage))
+  const base = { get }
+  const log = jest.fn()
+  const { api } = createAPI({ base, log })
+
+  const response = await api.dataElementsSummaryForProgramStage(programStageID)
+
+  expect(get).toHaveBeenCalledTimes(2)
+  expect(get).toHaveBeenNthCalledWith(2,
+    ENDPOINTS.PROGRAMS.GET_STAGE(programStageID), api.createRequest())
+  expect(log).toHaveBeenNthCalledWith(1)
+  expect(log).toHaveBeenNthCalledWith(2, 'PROGRAMS DATA ELEMENTS'.padStart(20))
+  expect(log).toHaveBeenNthCalledWith(3,
+    `${dataElements[0].displayName.padEnd(45, '.')} ${dataElements[0].id}`)
+})
+
 test('Get program indicator by id', routeWithIDTest({
   apiHandler: 'getProgramIndicator',
   path: ENDPOINTS.PROGRAMS.GET_INDICATOR
