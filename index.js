@@ -137,6 +137,13 @@ module.exports = class {
     return (await this._base.get(ENDPOINTS.PROGRAMS.GET_STAGES(), request)).programStages
   }
 
+  async programStagesSummary () {
+    const programStages = await this.getProgramStages()
+    this._log()
+    this._log('PROGRAMS STAGES'.padStart(20))
+    R.map(_ => this._log(`${_.displayName.padEnd(45, '.')} ${_.id}`), programStages)
+  }
+
   getProgramStage (id) {
     return this._base.get(ENDPOINTS.PROGRAMS.GET_STAGE(id), this.createRequest())
   }

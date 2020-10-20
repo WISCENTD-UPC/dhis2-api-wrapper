@@ -126,6 +126,14 @@ test('Get program stages', simpleRouteTest({
   responseProp: 'programStages'
 }))
 
+test('Program stages summary', summaryTest({
+  apiHandler: 'programStagesSummary',
+  path: ENDPOINTS.PROGRAMS.GET_STAGES,
+  headerValue: 'PROGRAMS STAGES',
+  mockedValue: { programStages: [ { displayName: 'Program stage', id: '__id__' } ] },
+  expectedValue: `${'Program stage'.padEnd(45, '.')} __id__`
+}))
+
 test('Get program stage by id', routeWithIDTest({
   apiHandler: 'getProgramStage',
   path: ENDPOINTS.PROGRAMS.GET_STAGE
