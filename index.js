@@ -155,7 +155,7 @@ module.exports = class {
     ])
     this._log()
     this._log('PROGRAMS DATA ELEMENTS'.padStart(20))
-    return R.pipe(
+    R.pipe(
       R.prop('programStageDataElements'),
       R.defaultTo([]),
       R.pluck('dataElement'),
