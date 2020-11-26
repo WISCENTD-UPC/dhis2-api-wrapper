@@ -3,12 +3,19 @@
   "version": "0.2.0",
   "description": "DHIS2 API wrapper",
   "main": "index.js",
+  "module": "dist/esm.js",
   "scripts": {
+    "prepare": "mkdir -p dist && babel index.js --out-dir dist",
     "test": "jest",
     "test-watch": "jest --watch"
   },
   "author": "Pablo-Rodriguez <rodpepablo@gmail.com>",
   "license": "GPL-3.0",
+  "bundleDepencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7"
+  },
   "dependencies": {
     "form-data": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
