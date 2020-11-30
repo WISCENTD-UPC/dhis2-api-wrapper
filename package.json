@@ -2,10 +2,10 @@
   "name": "dhis2-wrapper",
   "version": "0.2.0",
   "description": "DHIS2 API wrapper",
-  "main": "index.js",
-  "module": "dist/esm.js",
+  "main": "dist/index.js",
+  "module": "index.js",
   "scripts": {
-    "prepare": "mkdir -p dist && babel index.js --out-dir dist",
+    "prepare": "mkdir -p dist/src && babel index.js --out-dir dist && babel ./src/**/*.js --out-dir dist/src",
     "test": "jest",
     "test-watch": "jest --watch"
   },
