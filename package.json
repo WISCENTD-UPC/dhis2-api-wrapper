@@ -11,11 +11,11 @@
   },
   "author": "Pablo-Rodriguez <rodpepablo@gmail.com>",
   "license": "GPL-3.0",
-  "bundleDepencies": {
-    "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7"
-  },
+  "bundleDependencies": [
+    "@babel/cli",
+    "@babel/core",
+    "@babel/preset-env"
+  ],
   "dependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
