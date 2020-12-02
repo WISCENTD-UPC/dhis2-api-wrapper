@@ -3,27 +3,34 @@
   "version": "0.2.0",
   "description": "DHIS2 API wrapper",
   "main": "dist/index.js",
-  "module": "index.js",
+  "module": "src/index.js",
   "scripts": {
-    "prepare": "mkdir -p dist/src && babel index.js --out-dir dist && babel ./src/**/*.js --out-dir dist/src",
+    "postinstall": "mkdir -p dist && babel src/ -d dist",
     "test": "jest",
     "test-watch": "jest --watch"
   },
   "author": "Pablo-Rodriguez <rodpepablo@gmail.com>",
   "license": "GPL-3.0",
-  "bundleDepencies": {
+  "dependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7"
-  },
-  "dependencies": {
+    "@babel/preset-env": "^7.12.7",
     "form-data": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
     "query-string": "^6.13.1",
     "ramda": "^0.27.0"
   },
   "devDependencies": {
+    "core-js": "^3.8.0",
     "jest": "^26.1.0",
+    "regenerator-runtime": "^0.13.7",
     "uuid": "^8.3.0"
+  },
+  "jest": {
+    "transform": null,
+    "setupFiles": [
+      "core-js/stable",
+      "regenerator-runtime/runtime"
+    ]
   }
 }

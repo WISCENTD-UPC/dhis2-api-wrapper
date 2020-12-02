@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch'
 import R from 'ramda'
 
 // Project modules
-import Base from './src/base'
+import Base from './lib/base'
 //const { autoLogin } = require('./src/middleware')
 import ENDPOINTS from './config/endpoints'
 
