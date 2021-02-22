@@ -26,7 +26,9 @@ export default class {
   createRequest (config = {}) {
     config.api = this
     const { user, password } = this.credentials
-    config.token = Buffer.from(`${user}:${password}`).toString('base64')
+    if (user != null && password != null) {
+      config.token = Buffer.from(`${user}:${password}`).toString('base64')
+    }
     return config
   }
 
