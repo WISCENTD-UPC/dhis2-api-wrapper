@@ -5,6 +5,7 @@ export default {
   },
   ORGANISATION_UNITS: {
     GET_ALL: () => '/organisationUnits',
+    CREATE_ORGUNITS: () => '/metadata',
     GET: (id) => `/organisationUnits/${id}`
   },
   TRACKED_ENTITIES: {

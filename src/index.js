@@ -219,5 +219,13 @@ export default class {
     })
     return (await this._base.get(ENDPOINTS.OPTIONS.GET_OPTIONS(), request)).options
   }
+
+  async createOrganisationUnits (organisationUnits) {
+    const request = this.createRequest({
+      body: organisationUnits
+    })
+    return (await this._base.post(ENDPOINTS.ORGANISATION_UNITS.CREATE_ORGUNITS(), request))
+  }
+
 }
 

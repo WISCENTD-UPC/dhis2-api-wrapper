@@ -234,19 +234,42 @@ test('Get relationship types', simpleRouteTest({
 }))
 
 
-function simpleRouteTest ({ apiHandler, path, responseProp } = {}) {
+test('Create orgUnits', simpleRouteTest({
+  apiHandler: 'createOrganisationUnits',
+  path: ENDPOINTS.ORGANISATION_UNITS.CREATE_ORGUNITS,
+  verb: 'post',
+  body: '__orgUnits__',
+  requestConfig: { body: '__orgUnits__' }
+}))
+
+
+function simpleRouteTest ({ 
+  apiHandler, 
+  path,
+  responseProp,
+  verb = 'get',
+  body,
+  id,
+  requestConfig = {} 
+} = {}) {
   return async () => {
     const responseValue = { [responseProp]: uuid() }
-    const get = jest.fn().mockReturnValue(Promise.resolve(responseValue))
-    const base = { get }
+    const mock = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+    const base = { [verb]: mock }
     const { APIConfig, api } = createAPI({ base })
   
-    const response = await api[apiHandler]()
+    const response = body == null
+      ? id == null
+        ? await api[apiHandler]()
+        : await api[apiHandler](id)
+      : id == null
+        ? await api[apiHandler](body)
+        : await api[apiHandler](id, body)
 
-    expect(response).toBe(responseValue[responseProp])
-    expect(get).toHaveBeenCalledWith(path(), api.createRequest({
-      query: { paging: false }
-    }))
+    expect(response).toBe( verb == 'get' ? responseValue[responseProp] : responseValue)
+    expect(mock).toHaveBeenCalledWith(path(), api.createRequest(
+      verb == 'get' ? { query: { paging: false } } : { ...requestConfig }    
+    ))
   }
 }
 
