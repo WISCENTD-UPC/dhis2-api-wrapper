@@ -242,6 +242,28 @@ test('Create orgUnits', simpleRouteTest({
   requestConfig: { body: '__orgUnits__' }
 }))
 
+test('Get new ids', async () => {
+  const level = 3
+  const responseValue = {
+    codes: [
+      uuid(),
+      uuid(),
+      uuid()
+    ]
+  }  
+  const get = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+  const base = { get }
+  const { api } = createAPI({ base })
+
+  const response = await api.getNewIds(level)
+
+  expect(response).toStrictEqual(responseValue.codes)
+  const request = api.createRequest({
+    query: { paging: false, limit: level }
+  })
+  expect(get).toHaveBeenCalledWith(ENDPOINTS.SYSTEM.GET_IDS(), request)
+})
+
 
 function simpleRouteTest ({ 
   apiHandler, 

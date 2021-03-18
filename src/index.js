@@ -227,5 +227,11 @@ export default class {
     return (await this._base.post(ENDPOINTS.ORGANISATION_UNITS.CREATE_ORGUNITS(), request))
   }
 
+  async getNewIds (limit) {
+    const request = this.createRequest({
+      query: { paging: false, limit: limit }
+    })
+    return (await this._base.get(ENDPOINTS.SYSTEM.GET_IDS(), request)).codes
+  }
 }
 

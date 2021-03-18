@@ -36,6 +36,9 @@ export default {
     GET_SETS: () => '/optionSets',
     GET_SET: (id) => `/optionSets/${id}`,
     GET_OPTIONS: () => '/options'
+  },
+  SYSTEM: {
+    GET_IDS: () => '/system/id'
   }
 }
 
