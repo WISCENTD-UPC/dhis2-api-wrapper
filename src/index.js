@@ -66,7 +66,7 @@ export default class {
 
   async getOrganisationUnits () {
     const request = this.createRequest({
-      query: { paging: false }
+      query: { paging: false, fields: ["id,code,displayName"] }
     })
     return (await this._base.get(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request)).organisationUnits
   }

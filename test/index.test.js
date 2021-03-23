@@ -36,11 +36,22 @@ test('resources summary', summaryTest({
   expectedValue: `${'Resource'.padEnd(45, '.')} http://resource`
 }))
 
-test('Get organisation units', simpleRouteTest({
-  apiHandler: 'getOrganisationUnits',
-  path: ENDPOINTS.ORGANISATION_UNITS.GET_ALL,
-  responseProp: 'organisationUnits'
-}))
+test('Get organisation units',  async () => {
+  const responseValue = {
+    organisationUnits: [ uuid(), uuid() ]
+  }
+  const get = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+  const base = { get }
+  const { api } = createAPI({ base })
+
+  const response = await api.getOrganisationUnits()
+  
+  expect(response).toStrictEqual(responseValue.organisationUnits)
+  const request = api.createRequest({
+    query: { paging: false, fields: ["id,code,displayName"] }
+  })
+  expect(get).toHaveBeenCalledWith(ENDPOINTS.ORGANISATION_UNITS.GET_ALL(), request)
+})
 
 test('Get Organisation Unit by id', routeWithIDTest({
   apiHandler: 'getOrganisationUnit',
