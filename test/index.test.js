@@ -275,6 +275,13 @@ test('Get new ids', async () => {
   expect(get).toHaveBeenCalledWith(ENDPOINTS.SYSTEM.GET_IDS(), request)
 })
 
+test("Create Tracked Entity Instances", simpleRouteTest({
+  apiHandler: 'createTrackedEntityInstances',
+  path: ENDPOINTS.TRACKED_ENTITIES.CREATE_INSTANCES,
+  verb: 'post',
+  body: '__trackedEntities__',
+  requestConfig: { body: '__trackedEntities__' }
+}))
 
 function simpleRouteTest ({ 
   apiHandler, 

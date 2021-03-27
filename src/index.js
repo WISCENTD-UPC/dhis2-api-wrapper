@@ -233,5 +233,12 @@ export default class {
     })
     return (await this._base.get(ENDPOINTS.SYSTEM.GET_IDS(), request)).codes
   }
+
+  async createTrackedEntityInstances (trackedEntities) {
+    const request = this.createRequest({
+      body: trackedEntities
+    })
+    return (await this._base.post(ENDPOINTS.TRACKED_ENTITIES.CREATE_INSTANCES(), request))
+  }
 }
 

@@ -10,6 +10,7 @@ export default {
   },
   TRACKED_ENTITIES: {
     GET_INSTANCES: () => '/trackedEntityInstances',
+    CREATE_INSTANCES: () => '/trackedEntityInstances',
     GET_INSTANCE: (id) => `/trackedEntityInstances/${id}`,
     GET_TYPES: () => '/trackedEntityTypes',
     GET_ATTRIBUTES: () => '/trackedEntityAttributes',
