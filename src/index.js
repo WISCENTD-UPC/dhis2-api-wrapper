@@ -240,5 +240,12 @@ export default class {
     })
     return (await this._base.post(ENDPOINTS.TRACKED_ENTITIES.CREATE_INSTANCES(), request))
   }
+
+  async saveOnDataStore (namespace, key, body) {
+    const request = this.createRequest({
+      body: body
+    })
+    return (await this._base.post(ENDPOINTS.DATA_STORE.CREATE_VALUES(namespace, key), request))
+  }
 }
 

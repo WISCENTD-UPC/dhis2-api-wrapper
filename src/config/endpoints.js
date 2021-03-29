@@ -40,6 +40,9 @@ export default {
   },
   SYSTEM: {
     GET_IDS: () => '/system/id'
+  },
+  DATA_STORE: {
+    CREATE_VALUES: (namespace, key) => `/dataStore/${namespace}/${key}`
   }
 }
 
