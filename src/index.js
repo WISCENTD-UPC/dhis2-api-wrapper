@@ -247,5 +247,23 @@ export default class {
     })
     return (await this._base.post(ENDPOINTS.DATA_STORE.CREATE_VALUES(namespace, key), request))
   }
+
+  async addProgramsToOrgUnit (id, body) {
+    const request = this.createRequest({
+      body: body
+    })
+    return (await this._base.post(ENDPOINTS.ORGANISATION_UNITS.ADD_PROGRAMS(id), request))
+  }
+
+  async getCurrentUser () {
+    return (await this._base.get(ENDPOINTS.USERS.ME(), this.createRequest()))
+  }
+
+  async givePermissions (id, body) {
+    const request = this.createRequest({
+      body: body
+    })
+    return (await this._base.put(ENDPOINTS.USERS.USER(id), request))
+  }
 }
 

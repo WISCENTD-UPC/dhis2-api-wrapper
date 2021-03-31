@@ -6,7 +6,8 @@ export default {
   ORGANISATION_UNITS: {
     GET_ALL: () => '/organisationUnits',
     CREATE_ORGUNITS: () => '/metadata',
-    GET: (id) => `/organisationUnits/${id}`
+    GET: (id) => `/organisationUnits/${id}`,
+    ADD_PROGRAMS: (id) => `/organisationUnits/${id}/programs`
   },
   TRACKED_ENTITIES: {
     GET_INSTANCES: () => '/trackedEntityInstances',
@@ -43,6 +44,10 @@ export default {
   },
   DATA_STORE: {
     CREATE_VALUES: (namespace, key) => `/dataStore/${namespace}/${key}`
+  },
+  USERS: {
+    ME: () => '/me',
+    USER: (id) => `/users/${id}`
   }
 }
 

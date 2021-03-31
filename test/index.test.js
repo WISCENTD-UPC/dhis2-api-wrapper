@@ -283,6 +283,50 @@ test("Create Tracked Entity Instances", simpleRouteTest({
   requestConfig: { body: '__trackedEntities__' }
 }))
 
+test("Save On Data Store", async () => {
+  const namespace = uuid()
+  const key = uuid()
+  const body = uuid()
+  const responseValue = uuid() 
+  const post = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+  const base = { post }
+  const { api } = createAPI({ base })
+
+  const response = await api.saveOnDataStore(namespace, key, body)
+  expect(response).toStrictEqual(responseValue)
+  const request = api.createRequest({ body: body })
+  expect(post).toHaveBeenCalledWith(ENDPOINTS.DATA_STORE.CREATE_VALUES(namespace, key), request)
+})
+
+test("Add Programs To Organisation Unit", simpleRouteTest({
+  apiHandler: 'addProgramsToOrgUnit',
+  path: ENDPOINTS.ORGANISATION_UNITS.ADD_PROGRAMS,
+  verb: 'post',
+  body: '__programs__',
+  id: '__id__',
+  requestConfig: { body: '__programs__' }
+}))
+
+test("Get information of current user", async () => {
+  const responseValue = uuid() 
+  const get = jest.fn().mockReturnValue(Promise.resolve(responseValue))
+  const base = { get }
+  const { api } = createAPI({ base })
+
+  const response = await api.getCurrentUser()
+  expect(response).toStrictEqual(responseValue)
+  expect(get).toHaveBeenCalledWith(ENDPOINTS.USERS.ME(), api.createRequest())
+})
+
+test("Add Permissions to user given its id", simpleRouteTest({
+  apiHandler: 'givePermissions',
+  path: ENDPOINTS.USERS.USER,
+  verb: 'put',
+  body: '__permissions__',
+  id: '__id__',
+  requestConfig: { body: '__permissions__' }
+}))
+
 function simpleRouteTest ({ 
   apiHandler, 
   path,
@@ -307,7 +351,7 @@ function simpleRouteTest ({
         : await api[apiHandler](id, body)
 
     expect(response).toBe( verb == 'get' ? responseValue[responseProp] : responseValue)
-    expect(mock).toHaveBeenCalledWith(path(), api.createRequest(
+    expect(mock).toHaveBeenCalledWith(id != null ? path(id) : path(), api.createRequest(
       verb == 'get' ? { query: { paging: false } } : { ...requestConfig }    
     ))
   }
