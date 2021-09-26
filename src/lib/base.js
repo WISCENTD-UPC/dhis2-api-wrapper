@@ -34,13 +34,16 @@ export default class Base {
     const headers = {
       'Accept': 'application/json'
     }
-    //if (token != null) {
-    //  headers['Authorization'] = `Basic ${token}`
-    //}
+    if (token != null) {
+      headers['Authorization'] = `Basic ${token}`
+    }
+    console.log("**Request")
+    console.log({headers})
     const response = await this.fetch(this.url(`${path}?${qs.stringify(query)}`), {
       credentials: 'include',
       headers
     })
+    console.log({response})
     return response.json()
   }
 
@@ -51,18 +54,22 @@ export default class Base {
       'Accept': 'application/json',
       ...headers
     }
-    //if (token != null) {
-    //  headersConfig['Authorization'] = `Basic ${token}`
-    //}
+    if (token != null) {
+      headersConfig['Authorization'] = `Basic ${token}`
+    }
     if (headers['Content-Type'] === null) {
       delete headersConfig['Content-Type']
     }
+    console.log("Second Request (POST?)")
+    console.log({headersConfig})
+    console.log(JSON.stringify(body))
     const response = await this.fetch(this.url(`${path}?${qs.stringify(query)}`), {
       method,
       headers: headersConfig,
       credentials: 'include',
       body: body instanceof FormData ? body : JSON.stringify(body)
     })
+    console.log({response})
     return response.json()
   }
 
