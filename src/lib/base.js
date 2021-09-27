@@ -34,9 +34,9 @@ export default class Base {
     const headers = {
       'Accept': 'application/json'
     }
-    if (token != null) {
-      headers['Authorization'] = `Basic ${token}`
-    }
+    //if (token != null) {
+    //  headers['Authorization'] = `Basic ${token}`
+    //}
     console.log("**Request")
     console.log({headers})
     const response = await this.fetch(this.url(`${path}?${qs.stringify(query)}`), {
@@ -54,9 +54,9 @@ export default class Base {
       'Accept': 'application/json',
       ...headers
     }
-    if (token != null) {
-      headersConfig['Authorization'] = `Basic ${token}`
-    }
+    //if (token != null) {
+    //  headersConfig['Authorization'] = `Basic ${token}`
+    //}
     if (headers['Content-Type'] === null) {
       delete headersConfig['Content-Type']
     }
