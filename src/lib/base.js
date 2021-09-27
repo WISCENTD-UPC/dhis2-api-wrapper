@@ -37,7 +37,7 @@ export default class Base {
     //if (token != null) {
     //  headers['Authorization'] = `Basic ${token}`
     //}
-    console.log("**Request")
+    console.log("****Request")
     console.log({headers})
     const response = await this.fetch(this.url(`${path}?${qs.stringify(query)}`), {
       credentials: 'include',
